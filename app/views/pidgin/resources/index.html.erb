@@ -1,0 +1,5 @@
+<h1>リソース一覧</h1>
+<% @resources.each do |resource| %>
+  <h2><%= link_to resource.id, resource_path(resource.id) %></h2>
+  <p><%= resource.description %></p>
+<% end %>
