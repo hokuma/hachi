@@ -1,0 +1,9 @@
+<h1><%= @resource.title %></h1>
+<p><%= @resource.description %></p>
+<h2>Links</h2>
+<ul>
+<% @resource.links.each do |link| %>
+  <li><%= link.method %> <%= link.href %></li>
+<% end %>
+</ul>
+
