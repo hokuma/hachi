@@ -1,21 +1,17 @@
 module Pidgin
   class Schema
-    class << self
-      def load_schema
-        json_data = JSON.parse(File.read(Pidgin::Config.schema_path))
-        schema = JsonSchema.parse!(json_data)
-        schema.expand_references!
-        schema
-      end
+    include Singleton
 
-      def fetch
-        @instance ||= load_schema
-      end
+    def initialize
+      @schema = load_schema
+      @router = Router.new(@schema)
     end
 
-    def initialize schema
-      @schema = schema
-      @router = Router.new(schema)
+    def load_schema
+      json_data = JSON.parse(File.read(Pidgin::Config.schema_path))
+      schema = JsonSchema.parse!(json_data)
+      schema.expand_references!
+      schema
     end
 
     def definitions
