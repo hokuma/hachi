@@ -19,4 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 5.0.0", ">= 5.0.0.1"
   s.add_dependency 'json_schema'
   s.add_dependency 'sqlite3'
+  s.add_development_dependency 'prmd'
+  s.add_development_dependency 'heroics'
+  s.add_development_dependency 'byebug'
 end
