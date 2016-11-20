@@ -1,0 +1,14 @@
+<div class='response'>
+  <p>Response</p>
+  <div class='response-status'>
+    <%= link.status %>
+  </div>
+  <div class='response-body'>
+    <% if link.target_schema.present? %>
+      <pre><%= link.example_response.to_json %></pre>
+    <% elsif link.method == 'GET' %>
+      <p><%= @link.parent.properties.inspect %></p>
+    <% end %>
+  </div>
+</div>
+
