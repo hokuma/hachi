@@ -1,0 +1,9 @@
+<h1><%= "#{@link.method} #{@link.href}" %></h1>
+<p><%= @link.description %></p>
+<div>
+  <div class='api-tester'>
+    <%= react_component('ApiTester', { href: @link.href, schema: @link.schema_hash }) %>
+  </div>
+  <%= render 'response', link: @link %>
+</div>
+
