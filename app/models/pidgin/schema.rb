@@ -18,8 +18,8 @@ module Pidgin
       @schema.definitions
     end
 
-    def find_definition_from_request method, path
-      @router[[method, path]]
+    def get_link method, href
+      Link.new(@router.find_by(method: method, href: href))
     end
   end
 end
