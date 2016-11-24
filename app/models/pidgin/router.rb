@@ -15,7 +15,7 @@ module Pidgin
     end
 
     def find_by method:, href:
-      @routes[[method.to_sym, '/' + href]]
+      @routes[[method.to_sym, URI.decode('/' + href)]]
     end
   end
 end
