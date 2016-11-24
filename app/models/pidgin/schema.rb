@@ -5,6 +5,7 @@ module Pidgin
     def initialize
       @schema = load_schema
       @router = Router.new(@schema)
+      @evaluator = JsonPointer::Evaluator.new(@schema)
     end
 
     def load_schema
@@ -16,6 +17,10 @@ module Pidgin
 
     def definitions
       @schema.definitions
+    end
+
+    def resolve_path(path)
+      @evaluator.evaluate(path)
     end
 
     def get_link method, href

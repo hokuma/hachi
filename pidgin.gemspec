@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'json_schema'
   s.add_dependency 'sqlite3'
   s.add_dependency 'react-rails'
+  s.add_dependency 'heroics'
   s.add_development_dependency 'prmd'
-  s.add_development_dependency 'heroics'
   s.add_development_dependency 'byebug'
 end

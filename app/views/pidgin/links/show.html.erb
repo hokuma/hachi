@@ -1,8 +1,8 @@
-<h1><%= "#{@link.method} #{@link.href}" %></h1>
+<h1><%= "#{@link.method} #{@link.path}" %></h1>
 <p><%= @link.description %></p>
 <div>
   <div class='api-tester'>
-    <%= react_component('ApiTester', { href: @link.href, schema: @link.schema_hash }) %>
+    <%= react_component('ApiTester', { path: @link.path, schema: @link.schema_hash }) %>
   </div>
   <%= render 'response', link: @link %>
 </div>
