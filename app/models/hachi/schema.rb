@@ -1,4 +1,4 @@
-module Pidgin
+module Hachi
   class Schema
     include Singleton
 
@@ -9,7 +9,7 @@ module Pidgin
     end
 
     def load_schema
-      json_data = JSON.parse(File.read(Pidgin::Config.schema_path))
+      json_data = JSON.parse(File.read(Hachi::Config.schema_path))
       schema = JsonSchema.parse!(json_data)
       schema.expand_references!
       schema

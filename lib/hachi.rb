@@ -4,10 +4,10 @@ require 'sass-rails'
 require 'jquery-rails'
 require 'react-rails'
 require 'heroics'
-require "pidgin/engine"
-require 'pidgin/config'
-require 'pidgin/client'
+require "hachi/engine"
+require 'hachi/config'
+require 'hachi/client'
 
-module Pidgin
+module Hachi
   # Your code goes here...
 end

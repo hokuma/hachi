@@ -1,6 +1,6 @@
-require_dependency "pidgin/application_controller"
+require_dependency "hachi/application_controller"
 
-module Pidgin
+module Hachi
   class ResourcesController < ApplicationController
     def index
       @resources = Resource.find_all

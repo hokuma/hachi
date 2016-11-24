@@ -1,6 +1,6 @@
-require_dependency 'pidgin/application_controller'
+require_dependency 'hachi/application_controller'
 
-module Pidgin
+module Hachi
   class LinksController < ApplicationController
     before_action :fetch_link
     skip_before_action :verify_authenticity_token, only: [:client]
@@ -16,7 +16,7 @@ module Pidgin
     private
 
     def fetch_link
-      @link = Pidgin::Schema.instance.get_link params[:method], params[:href]
+      @link = Hachi::Schema.instance.get_link params[:method], params[:href]
     end
   end
 end

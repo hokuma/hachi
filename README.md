@@ -1,4 +1,4 @@
-# Pidgin
+# hachi
 Short description and motivation.
 
 ## Usage
@@ -8,7 +8,7 @@ How to use my plugin.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'pidgin'
+gem 'hachi'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install pidgin
+$ gem install hachi
 ```
 
 ## Contributing

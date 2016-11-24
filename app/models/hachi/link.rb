@@ -1,4 +1,4 @@
-module Pidgin
+module Hachi
   class Link
     extend Forwardable
 
@@ -59,7 +59,7 @@ module Pidgin
           result = /{\((.+)\)}/.match(dir)
           if result
             decoded_path = URI.decode(result[1])
-            identity_schema = Pidgin::Schema.instance.resolve_path(decoded_path)
+            identity_schema = Hachi::Schema.instance.resolve_path(decoded_path)
             identities = identity_schema.data['anyOf'].map do |ref|
               result = /definitions\/(.+)\/definitions\/(.+)/.match(ref['$ref'])
               ":#{result[1]}_#{result[2]}"
@@ -78,7 +78,7 @@ module Pidgin
     end
 
     def send_request token, identity, payload
-      client = ::Pidgin::Client.klass.connect_oauth(token)
+      client = ::Hachi::Client.klass.connect_oauth(token)
       identity_args = self.path.split('/').each_with_object([]) do |dir, result|
         result << identity[dir]
       end.compact

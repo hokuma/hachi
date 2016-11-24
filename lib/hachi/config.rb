@@ -1,4 +1,4 @@
-module Pidgin
+module Hachi
   class Config
     include ActiveSupport::Configurable
 

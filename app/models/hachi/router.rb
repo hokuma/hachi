@@ -1,4 +1,4 @@
-module Pidgin
+module Hachi
   class Router
     def initialize schema
       @routes = build_routes(schema)

@@ -1,4 +1,4 @@
-module Pidgin
+module Hachi
   module ApplicationHelper
   end
 end

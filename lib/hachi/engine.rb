@@ -1,5 +1,5 @@
-module Pidgin
+module Hachi
   class Engine < ::Rails::Engine
-    isolate_namespace Pidgin
+    isolate_namespace Hachi
   end
 end

@@ -1,4 +1,4 @@
-module Pidgin
+module Hachi
   class Resource
     extend Forwardable
 
@@ -7,13 +7,13 @@ module Pidgin
     def_delegators :@definition, :title, :description
     class << self
       def find_all
-        ::Pidgin::Schema.instance.definitions.map do |id, definition|
+        ::Hachi::Schema.instance.definitions.map do |id, definition|
           new(id, definition)
         end
       end
 
       def find_by_id id
-        ::Pidgin::Schema.instance.definitions[id]
+        ::Hachi::Schema.instance.definitions[id]
       end
     end
 

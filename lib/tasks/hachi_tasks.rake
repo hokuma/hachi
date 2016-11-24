@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :pidgin do
+# task :hachi do
 #   # Task goes here
 # end

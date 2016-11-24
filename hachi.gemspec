@@ -1,16 +1,16 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "pidgin/version"
+require "hachi/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "pidgin"
-  s.version     = Pidgin::VERSION
+  s.name        = "hachi"
+  s.version     = Hachi::VERSION
   s.authors     = ["hokuma"]
   s.email       = ["okuma@hokuma.net"]
-  s.homepage    = "https://github.com/hokuma/pidgin"
-  s.summary     = "Pidgin supports communications between api servers and clients."
+  s.homepage    = "https://github.com/hokuma/hachi"
+  s.summary     = "hachi supports communications between api servers and clients."
   s.description = ""
   s.license     = "MIT"
 
