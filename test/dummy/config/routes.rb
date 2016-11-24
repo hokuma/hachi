@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Pidgin::Engine => "/pidgin"
+  mount Hachi::Engine => "/hachi"
 end
