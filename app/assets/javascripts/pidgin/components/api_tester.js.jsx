@@ -36,14 +36,22 @@ class ApiTester extends React.Component {
     let schema = this.state.schema;
     return (
       <div className='api-tester'>
-        <div>oauth_token: <input onChange={this.onTokenChange.bind(this)} type='text' value={this.state.token} /></div>
-        <div>{this.endpoint}</div>
+        <div className='form-group'>
+          <label for='accessToken'>Access Token</label>
+          <input className='form-control' id='accessToken' onChange={this.onTokenChange.bind(this)} type='text' value={this.state.token} />
+        </div>
+        <div className='form-group'>
+          <label for='endpoint'>Endpoint</label>
+          <div className='input-group'>
+            {this.endpoint}
+          </div>
+        </div>
         <Form
           onSubmit={this.sendRequest.bind(this)}
           schema={schema ? schema : {}}
-          />
+         />
         <div className='response'>
-          <pre>{this.state.response}</pre>
+          <pre>{JSON.stringify(this.state.response)}</pre>
         </div>
       </div>
     );

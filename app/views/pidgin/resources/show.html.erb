@@ -1,9 +1,16 @@
-<h1><%= @resource.title %></h1>
+<h1 class='page-header'><%= @resource.title %></h1>
 <p><%= @resource.description %></p>
+<h2>Property</h2>
+<dl>
+  <%- @resource.properties.each do |key, definition| -%>
+    <dt><%= key %></dt>
+    <dd><%= definition.data.to_json %></dd>
+  <%- end -%>
+</dl>
 <h2>Links</h2>
 <ul>
 <% @resource.links.each do |link| %>
-  <li><%= link.method %> <%= link.href %></li>
+  <li><%= link_to link.title, controller: 'links', action: 'show', method: link.method, href: link.href.slice(1..-1) %></li>
 <% end %>
 </ul>
 
