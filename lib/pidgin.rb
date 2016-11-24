@@ -1,4 +1,7 @@
 require 'json_schema'
+require 'bootstrap-sass'
+require 'sass-rails'
+require 'jquery-rails'
 require 'react-rails'
 require 'heroics'
 require "pidgin/engine"
