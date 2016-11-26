@@ -5,9 +5,7 @@
   </div>
   <div class='response-body'>
     <% if link.target_schema.present? %>
-      <pre><%= link.example_response.to_json %></pre>
-    <% elsif link.method == 'GET' %>
-      <p><%= @link.parent.properties.inspect %></p>
+      <pre><%= JSON.pretty_generate(link.example_response) %></pre>
     <% end %>
   </div>
 </div>
