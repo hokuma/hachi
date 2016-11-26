@@ -28,11 +28,11 @@ module Hachi
     end
 
     def status
-      if @definition.method == :post
-        if @definition.target_schema.present?
+      if @definition.target_schema.present?
+        if @definition.method == :post
           201
         else
-          204
+          200
         end
       else
         200
@@ -41,15 +41,11 @@ module Hachi
 
     def example_response
       if @definition.target_schema.present?
-        @definition.target_schema.properties.each_with_object({}) do |(key, values), result|
-          example = case values.type.first
-                    when 'string'
-                      'sample text'
-                    end
-          result[key] = example
+        @definition.target_schema.properties.each_with_object({}) do |(key, property), result|
+          result[key] = property.data['example']
         end
       else
-        ''
+        nil
       end
     end
 
