@@ -1,0 +1,12 @@
+<dl>
+  <%- properties.each do |key, definition| -%>
+    <dt><%= key %><%= (required.present? && required.include?(key)) ? '*' : '' %></dt>
+    <dd><%= definition.description %></dd>
+    <dd><%= definition.type %></dd>
+    <%- [:format, :pattern, :max_length, :min_length, :enum, :one_of, :any_of, :all_of].each do |constraint| -%>
+      <%- if definition.send(constraint).present? -%>
+        <dd><%= constraint %>:<%= definition.send(constraint) %></dd>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+</dl>
