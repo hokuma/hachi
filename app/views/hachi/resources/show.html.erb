@@ -1,12 +1,7 @@
 <h1 class='page-header'><%= @resource.title %></h1>
 <p><%= @resource.description %></p>
 <h2>Property</h2>
-<dl>
-  <%- @resource.properties.each do |key, definition| -%>
-    <dt><%= key %></dt>
-    <dd><%= definition.data.to_json %></dd>
-  <%- end -%>
-</dl>
+<%= render 'properties', properties: @resource.properties, required: @resource.required %>
 <h2>Links</h2>
 <ul>
 <% @resource.links.each do |link| %>
