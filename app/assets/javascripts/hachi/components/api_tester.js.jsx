@@ -4,7 +4,7 @@ class ApiTester extends React.Component {
     super(props);
     this.state = {};
     this.state.schema = this.props.schema;
-    this.state.response = {};
+    this.state.response = null;
     this.state.token = '';
     this.state.identity = {};
     this.props.path.split('/').forEach((dir) => {
@@ -37,11 +37,11 @@ class ApiTester extends React.Component {
     return (
       <div className='api-tester'>
         <div className='form-group'>
-          <label for='accessToken'>Access Token</label>
+          <label htmlFor='accessToken'>Access Token</label>
           <input className='form-control' id='accessToken' onChange={this.onTokenChange.bind(this)} type='text' value={this.state.token} />
         </div>
         <div className='form-group'>
-          <label for='endpoint'>Endpoint</label>
+          <label htmlFor='endpoint'>Endpoint</label>
           <div className='input-group'>
             {this.endpoint}
           </div>
@@ -51,7 +51,7 @@ class ApiTester extends React.Component {
           schema={schema ? schema : {}}
          />
         <div className='response'>
-          <pre>{JSON.stringify(this.state.response)}</pre>
+          <pre>{this.state.response ? JSON.stringify(this.state.response, null, 2) : ''}</pre>
         </div>
       </div>
     );
