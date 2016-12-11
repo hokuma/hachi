@@ -38,9 +38,17 @@ module Hachi
       end
     end
 
+    def route_path
+      self.href.gsub(/\.json$/, '').slice(1..-1)
+    end
+
     def path
+      path_with_ext.gsub(/\.json$/, '')
+    end
+
+    def path_with_ext
       if @definition.href =~ /{/
-        @definition.href.split('/').map do |dir|
+          @definition.href.split('/').map do |dir|
           result = /{\((.+)\)}/.match(dir)
           if result
             decoded_path = URI.decode(result[1])

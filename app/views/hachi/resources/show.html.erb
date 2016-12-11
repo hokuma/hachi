@@ -5,7 +5,7 @@
 <h2>Links</h2>
 <ul>
 <% @resource.links.each do |link| %>
-  <li><%= link_to link.title, controller: 'links', action: 'show', method: link.method, href: link.href.slice(1..-1) %></li>
+  <li><%= link_to link.title, controller: 'links', action: 'show', method: link.method, href: link.route_path %></li>
 <% end %>
 </ul>
 
