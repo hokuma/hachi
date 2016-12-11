@@ -50,15 +50,23 @@ class ApiTester extends React.Component {
           onSubmit={this.sendRequest.bind(this)}
           schema={schema ? schema : {}}
          />
-        <div className='response'>
-          <pre>{this.state.response ? JSON.stringify(this.state.response, null, 2) : ''}</pre>
-        </div>
+        {this.renderResponse()}
       </div>
+    );
+  }
+
+  renderResponse() {
+    return (
+        <div className='response'>
+          <div className='status'>Status: {this.state.response ? this.state.response.status : ''}</div>
+          <pre>{this.state.response && this.state.response.body !== '' ? JSON.stringify(this.state.response.body, null, 2) : ''}</pre>
+        </div>
     );
   }
 
   sendRequest(form) {
     const metas = document.getElementsByTagName('meta');
+    let status = null;
     fetch(window.location.pathname, {
       method: 'POST',
       headers: {
@@ -71,9 +79,14 @@ class ApiTester extends React.Component {
         payload: form.formData
       })
     }).then((response) => {
-      return response.json();
-    }).then((json) => {
-      this.setState({response: json});
+      status = response.status;
+      return response.text();
+    }).then((text) => {
+      if(text.replace(/\s/, '') !== '') {
+        this.setState({response: {status: status, body: JSON.parse(text)}});
+      } else {
+        this.setState({response: {status: status, body: ''}});
+      }
     });
   }
 }

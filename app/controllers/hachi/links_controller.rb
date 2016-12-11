@@ -9,8 +9,12 @@ module Hachi
     end
 
     def client
-      response = @link.send_request(params[:token], params[:identity], params[:payload])
-      render json: response
+      begin
+        response = @link.send_request(params[:token], params[:identity], params[:payload])
+        render json: response
+      rescue Excon::Errors::ClientError => error
+        render json: error.response.body, status: error.response.status
+      end
     end
 
     private
