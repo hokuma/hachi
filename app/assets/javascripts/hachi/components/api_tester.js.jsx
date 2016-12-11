@@ -71,7 +71,7 @@ class ApiTester extends React.Component {
         payload: form.formData
       })
     }).then((response) => {
-      return resposne.json();
+      return response.json();
     }).then((json) => {
       this.setState({response: json});
     });
