@@ -4,7 +4,7 @@ class ApiTester extends React.Component {
     super(props);
     this.state = {};
     this.state.schema = this.props.schema;
-    this.state.response = {};
+    this.state.response = null;
     this.state.token = '';
     this.state.identity = {};
     this.props.path.split('/').forEach((dir) => {
@@ -37,11 +37,11 @@ class ApiTester extends React.Component {
     return (
       <div className='api-tester'>
         <div className='form-group'>
-          <label for='accessToken'>Access Token</label>
+          <label htmlFor='accessToken'>Access Token</label>
           <input className='form-control' id='accessToken' onChange={this.onTokenChange.bind(this)} type='text' value={this.state.token} />
         </div>
         <div className='form-group'>
-          <label for='endpoint'>Endpoint</label>
+          <label htmlFor='endpoint'>Endpoint</label>
           <div className='input-group'>
             {this.endpoint}
           </div>
@@ -50,15 +50,23 @@ class ApiTester extends React.Component {
           onSubmit={this.sendRequest.bind(this)}
           schema={schema ? schema : {}}
          />
-        <div className='response'>
-          <pre>{JSON.stringify(this.state.response)}</pre>
-        </div>
+        {this.renderResponse()}
       </div>
+    );
+  }
+
+  renderResponse() {
+    return (
+        <div className='response'>
+          <div className='status'>Status: {this.state.response ? this.state.response.status : ''}</div>
+          <pre>{this.state.response && this.state.response.body !== '' ? JSON.stringify(this.state.response.body, null, 2) : ''}</pre>
+        </div>
     );
   }
 
   sendRequest(form) {
     const metas = document.getElementsByTagName('meta');
+    let status = null;
     fetch(window.location.pathname, {
       method: 'POST',
       headers: {
@@ -71,9 +79,14 @@ class ApiTester extends React.Component {
         payload: form.formData
       })
     }).then((response) => {
-      return resposne.json();
-    }).then((json) => {
-      this.setState({response: json});
+      status = response.status;
+      return response.text();
+    }).then((text) => {
+      if(text.replace(/\s/, '') !== '') {
+        this.setState({response: {status: status, body: JSON.parse(text)}});
+      } else {
+        this.setState({response: {status: status, body: ''}});
+      }
     });
   }
 }

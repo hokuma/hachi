@@ -16,23 +16,12 @@ module Hachi
       @definition = definition
     end
 
-    def schema_hash
-      return nil unless @definition.schema
-      hash = @definition.schema.data.dup
-      @definition.schema.properties.each do |key, value|
-        hash['properties'][key] = value.data
-      end
-      type = @definition.schema.type
-      hash['type'] = type.is_a?(Array) ? type.first : type
-      hash
-    end
-
     def status
-      if @definition.method == :post
-        if @definition.target_schema.present?
+      if @definition.target_schema.present?
+        if @definition.method == :post
           201
         else
-          204
+          200
         end
       else
         200
@@ -41,21 +30,25 @@ module Hachi
 
     def example_response
       if @definition.target_schema.present?
-        @definition.target_schema.properties.each_with_object({}) do |(key, values), result|
-          example = case values.type.first
-                    when 'string'
-                      'sample text'
-                    end
-          result[key] = example
+        @definition.target_schema.properties.each_with_object({}) do |(key, property), result|
+          result[key] = property.data['example']
         end
       else
-        ''
+        nil
       end
     end
 
+    def route_path
+      self.href.gsub(/\.json$/, '').slice(1..-1)
+    end
+
     def path
+      path_with_ext.gsub(/\.json$/, '')
+    end
+
+    def path_with_ext
       if @definition.href =~ /{/
-        @definition.href.split('/').map do |dir|
+          @definition.href.split('/').map do |dir|
           result = /{\((.+)\)}/.match(dir)
           if result
             decoded_path = URI.decode(result[1])

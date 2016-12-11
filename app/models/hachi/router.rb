@@ -15,7 +15,7 @@ module Hachi
     end
 
     def find_by method:, href:
-      @routes[[method.to_sym, URI.decode('/' + href)]]
+      @routes[[method.to_sym, URI.decode('/' + href + '.json')]]
     end
   end
 end
