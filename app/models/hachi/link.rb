@@ -16,17 +16,6 @@ module Hachi
       @definition = definition
     end
 
-    def schema_hash
-      return nil unless @definition.schema
-      hash = @definition.schema.data.dup
-      @definition.schema.properties.each do |key, value|
-        hash['properties'][key] = value.data
-      end
-      type = @definition.schema.type
-      hash['type'] = type.is_a?(Array) ? type.first : type
-      hash
-    end
-
     def status
       if @definition.target_schema.present?
         if @definition.method == :post
