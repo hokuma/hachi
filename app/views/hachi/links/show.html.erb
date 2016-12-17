@@ -2,7 +2,7 @@
 <p><%= @link.description %></p>
 <div>
   <div class='api-tester'>
-    <%= react_component('ApiTester', { path: @link.path, schema: schema_to_hash(@link.schema.data.dup) }) %>
+    <%= react_component('ApiTester', { path: @link.path, schema: @link.schema ? schema_to_hash(@link.schema.data.dup) : {} }) %>
   </div>
   <%= render 'response', link: @link %>
 </div>
