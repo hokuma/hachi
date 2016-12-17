@@ -9,8 +9,7 @@ module Hachi
                    :method,
                    :parent,
                    :rel,
-                   :schema,
-                   :target_schema
+                   :schema
 
     def initialize(definition)
       @definition = definition
@@ -25,16 +24,6 @@ module Hachi
         end
       else
         200
-      end
-    end
-
-    def example_response
-      if @definition.target_schema.present?
-        @definition.target_schema.properties.each_with_object({}) do |(key, property), result|
-          result[key] = property.data['example']
-        end
-      else
-        nil
       end
     end
 
@@ -65,6 +54,15 @@ module Hachi
         @definition.href
       end
     end
+
+    def target_schema
+      return @definition.target_schema if @definition.target_schema
+      case @definition.rel
+      when 'self'
+        @definition.parent
+      when 'instances'
+      end
+     end
 
     def resource_name
       self.parent.pointer.match(/definitions\/(.+)\z/)[1]
