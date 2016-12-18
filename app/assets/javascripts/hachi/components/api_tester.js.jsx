@@ -5,7 +5,10 @@ class ApiTester extends React.Component {
     this.state = {};
     this.state.schema = this.props.schema;
     this.state.response = null;
+    this.state.username = '';
+    this.state.password = '';
     this.state.token = '';
+    this.state.headers = this.props.headers;
     this.state.identity = {};
     this.props.path.split('/').forEach((dir) => {
       if(dir.match(/:/)) {
@@ -28,8 +31,20 @@ class ApiTester extends React.Component {
     this.setState({identity: Object.assign(this.state.identity, {[dir]: e.target.value})});
   }
 
+  onUsernameChange(e) {
+    this.setState({username: e.target.value});
+  }
+
+  onPasswordChange(e) {
+    this.setState({password: e.target.value});
+  }
+
   onTokenChange(e) {
     this.setState({token: e.target.value});
+  }
+
+  onHeaderChange(e, key) {
+    this.setState({headers: Object.assign({}, this.state.headers, {[key]: e.target.value})});
   }
 
   render() {
@@ -37,9 +52,18 @@ class ApiTester extends React.Component {
     return (
       <div className='api-tester'>
         <div className='form-group'>
+          <label htmlFor='username'>Username</label>
+          <input className='form-control' id='username' onChange={this.onUsernameChange.bind(this)} type='text' value={this.state.username} />
+        </div>
+         <div className='form-group'>
+          <label htmlFor='password'>Password</label>
+          <input className='form-control' id='password' type='password' onChange={this.onPasswordChange.bind(this)} type='text' value={this.state.password} />
+        </div>
+        <div className='form-group'>
           <label htmlFor='accessToken'>Access Token</label>
           <input className='form-control' id='accessToken' onChange={this.onTokenChange.bind(this)} type='text' value={this.state.token} />
         </div>
+        {this.renderHeaders()}
         <div className='form-group'>
           <label htmlFor='endpoint'>Endpoint</label>
           <div className='input-group'>
@@ -52,6 +76,29 @@ class ApiTester extends React.Component {
          />
         {this.renderResponse()}
       </div>
+    );
+  }
+
+  changeHandler(key) {
+    return (e) => {
+      this.onHeaderChange(e, key);
+    };
+  }
+
+  renderHeaders() {
+    if(!!!this.state.headers) {
+      return null;
+    }
+    return Object.keys(this.state.headers).map(
+      (key) => {
+        const paramKey = `headers[${key}]`;
+        return (
+          <div className='form-group' key={key}>
+            <label htmlFor={paramKey}>{key}</label>
+            <input className='form-control' id={paramKey} onChange={this.changeHandler(key)} type='text' value={this.state.headers[key]} />
+          </div>
+        );
+      }
     );
   }
 
@@ -74,8 +121,11 @@ class ApiTester extends React.Component {
         'X-CSRF-Token': metas['csrf-token']['content'],
       },
       body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
         token: this.state.token,
         identity: this.state.identity,
+        headers: this.state.headers,
         payload: form.formData
       })
     }).then((response) => {
