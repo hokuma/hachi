@@ -93,7 +93,7 @@ class ApiTester extends React.Component {
       (key) => {
         const paramKey = `headers[${key}]`;
         return (
-          <div className='form-group'>
+          <div className='form-group' key={key}>
             <label htmlFor={paramKey}>{key}</label>
             <input className='form-control' id={paramKey} onChange={this.changeHandler(key)} type='text' value={this.state.headers[key]} />
           </div>
