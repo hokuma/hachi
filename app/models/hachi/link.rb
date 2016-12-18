@@ -68,8 +68,19 @@ module Hachi
       self.parent.pointer.match(/definitions\/(.+)\z/)[1]
     end
 
-    def send_request token, identity, payload
-      client = ::Hachi::Client.klass.connect_oauth(token)
+    def send_authorization_request username, password, identity, payload, headers
+      token = Base64.encode64("#{username}:#{password}")
+      headers.merge!({ 'Authorization' => "Basic #{token}" })
+      client = ::Hachi::Client.klass.connect(nil, { default_headers: headers })
+      send_request client, identity, payload
+    end
+
+    def send_oauth_request token, identity, payload, headers
+      client = ::Hachi::Client.klass.connect_oauth(token, { default_headers: headers })
+      send_request client, identity, payload
+    end
+
+    def send_request client, identity, payload
       identity_args = self.path.split('/').each_with_object([]) do |dir, result|
         result << identity[dir]
       end.compact
@@ -80,7 +91,7 @@ module Hachi
       elsif @definition.schema.present?
         client.send(self.resource_name).send(self.title, payload)
       else
-        raise 'unsupported request interface'
+        client.send(self.resource_name).send(self.title)
       end
     end
   end
