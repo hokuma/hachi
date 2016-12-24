@@ -70,8 +70,8 @@ module Hachi
 
     def send_authorization_request username, password, identity, payload, headers
       token = Base64.encode64("#{username}:#{password}")
-      headers.merge!({ 'Authorization' => "Basic #{token}" })
-      client = ::Hachi::Client.klass.connect(nil, { default_headers: headers })
+      default_headers = headers.merge({ 'Authorization' => "Basic #{token}" })
+      client = ::Hachi::Client.klass.connect(nil, { default_headers: default_headers })
       send_request client, identity, payload
     end
 
