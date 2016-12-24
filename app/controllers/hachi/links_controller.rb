@@ -14,7 +14,7 @@ module Hachi
         if params[:username].present? || params[:password].present?
           response = @link.send_authorization_request(params[:username], params[:password], params[:identity], params[:payload], params[:headers])
         else
-          response = @link.send_request(params[:token], params[:identity], params[:payload], params[:headers])
+          response = @link.send_oauth_request(params[:token], params[:identity], params[:payload], params[:headers])
         end
         render json: response
       rescue Excon::Errors::ClientError => error
